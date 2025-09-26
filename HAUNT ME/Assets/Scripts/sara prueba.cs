@@ -53,7 +53,7 @@ public class saraprueba : MonoBehaviour
             characterController.stepOffset = 0.0f;
         }
 
-            Vector3 velocity = movementDirection * magnitude;
+        Vector3 velocity = movementDirection * magnitude;
         velocity.y = ySpeed;
         characterController.Move(velocity * Time.deltaTime); //Move player in direction
 
@@ -64,8 +64,9 @@ public class saraprueba : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);//rotate
         }
     }
-    private void OnApplicationFocus(bool focus)
+    private void OnApplicationFocus(bool focus) 
     {
+        //Camera focus
         if (focus)
         {
             Cursor.lockState = CursorLockMode.Locked;
