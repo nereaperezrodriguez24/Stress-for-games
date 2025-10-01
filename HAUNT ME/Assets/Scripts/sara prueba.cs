@@ -64,6 +64,7 @@ public class saraprueba : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);//rotate
         }
     }
+    /*
     private void OnApplicationFocus(bool focus) 
     {
         //Camera focus
@@ -75,6 +76,6 @@ public class saraprueba : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
-    }
+    }*/
 
 }
