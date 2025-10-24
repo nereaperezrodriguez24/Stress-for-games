@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,11 +13,16 @@ public class LanaMovement : MonoBehaviour
     private float ySpeed;
     private float OriginalStepOffSet;
     public LanaTransform LanaTransform;//public antes
+    public float timer = 3.0f;
 
     [Header("Player Settings")]
     public float speed;
     public float jumpSpeed;
     public float rotationSpeed;
+    public Vector3 savePosition;
+    private quaternion saveRotation;
+    public bool isTeleporting = false;
+    
 
     [Header("CameraFollow")]
     public Transform CameraTransform;
@@ -23,6 +30,7 @@ public class LanaMovement : MonoBehaviour
     [Header("Transformations")]
     public bool Lana = false;
     //private Transform PlayerPosition;
+    public PlayerManager PlayerManager;
 
 
     // Start is called before the first frame update
@@ -30,24 +38,75 @@ public class LanaMovement : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         OriginalStepOffSet = characterController.stepOffset;
-        
+        PlayerManager.CanUseInputs = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(LanaTransform.isLana == true)
+
+        if (LanaTransform.isLana == true)
         {
             Lana = true;
-            Movement();
+            CameraTransform.transform.position = LanaTransform.PointOfView.transform.position;
             
-        }
-        /*if (Input.GetKeyDown(KeyCode.E) && LanaTransform.isLana == true)
+            Movement();
+            timer -= Time.deltaTime;
+            if (timer <= 0)
             {
-                LanaTransform.isLana = false;
-            }*/
-        
+                timer = 0;
+                Fantasma();
+            }
+        }
     }
+    public void SaveLanaPosition()
+    {
+        savePosition = LanaTransform.PointOfView.position;
+        saveRotation = LanaTransform.PointOfView.rotation;
+        Debug.Log("savePosition actual: " + savePosition);
+    }
+    public void Fantasma()//Bloquear inputs al destransformarse
+    {
+        if (Lana == true && Input.GetKeyDown(KeyCode.E))
+        {
+            PlayerManager.CanUseInputs = false;
+            SaveLanaPosition();
+            isTeleporting = true;
+
+            // 1. Cambiar cámaras
+            LanaTransform.LanaCamera.SetActive(false);
+            LanaTransform.PlayerCamera.SetActive(true);
+            LanaTransform.PointOfView.SetParent(LanaTransform.transform);
+
+            LanaTransform.PointOfView.localPosition = Vector3.zero;
+            LanaTransform.PointOfView.localRotation = Quaternion.identity;
+            // 2. Obtener componentes del player
+            Transform playerRoot = LanaTransform.PlayerCamera.transform.root;
+
+            // 3. Aplicar rotación y posición
+            playerRoot.position = savePosition;
+            playerRoot.rotation = saveRotation;
+
+            // 4. Cambiar skins
+            LanaTransform.LanaSkin.SetActive(false);
+            LanaTransform.PlayerSkin.SetActive(true);
+
+            // 5. Cambiar estados
+            Lana = false;
+            LanaTransform.isLana = false;
+
+            // 6. Desactivar este script
+            if (this.enabled) this.enabled = false;
+
+            Debug.Log("? Teletransportado a: " + savePosition);
+            if(playerRoot.position == savePosition)
+            {
+                PlayerManager.CanUseInputs = true;
+            }
+        }
+    }
+
+
     public void Movement()
     {
         float horizontalInput = Input.GetAxis("Horizontal");//Detect horizontal inputs like a d <- ->
@@ -85,7 +144,6 @@ public class LanaMovement : MonoBehaviour
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);//rotate
         }
-
     }
-    
+
 }

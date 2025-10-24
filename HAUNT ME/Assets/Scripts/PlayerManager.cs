@@ -9,31 +9,38 @@ public class PlayerManager : MonoBehaviour
     private CharacterController characterController;
     private float ySpeed;
     private float OriginalStepOffSet;
+    private Animator animPlayer;
+    private bool IsMoving;
+    public LanaMovement lanamovement;
 
     [Header("Player Settings")]
     public float speed;
     public float jumpSpeed;
     public float rotationSpeed;
+    public bool CanUseInputs;
 
     [Header("CameraFollow")]
     public Transform CameraTransform;
-    
-    
-    //private Transform PlayerPosition;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        animPlayer = GetComponent<Animator>();
         OriginalStepOffSet = characterController.stepOffset;
+        CanUseInputs = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        Animation();
+        if (CanUseInputs == true)
+        {
+            Movement();
+        }
+
     }
+    
     public void Movement()
     {
         float horizontalInput = Input.GetAxis("Horizontal");//Detect horizontal inputs like a d <- ->
@@ -46,7 +53,7 @@ public class PlayerManager : MonoBehaviour
         movementDirection.Normalize(); //Allways the same velocity
 
         ySpeed += Physics.gravity.y * Time.deltaTime; //gravity in y
-
+        
         if (characterController.isGrounded) //is on ground?
         {
             characterController.stepOffset = OriginalStepOffSet;
@@ -73,5 +80,16 @@ public class PlayerManager : MonoBehaviour
         }
 
     }
+    public void Animation()
+    {
+        if (IsMoving == false)
+        {
+            animPlayer.SetBool("IsMoving", false);
 
+        }
+        else
+        {
+            animPlayer.SetBool("IsMoving", true);
+        }
+    }
 }
