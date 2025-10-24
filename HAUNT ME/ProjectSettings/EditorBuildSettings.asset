@@ -8,6 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/MENU/Menu.unity
+    guid: ed0e2251f08acbf4f97cef10ff0277d0
+  - enabled: 1
+    path: Assets/Scenes/Prueba.unity
+    guid: 26a30c93c2fe6ca48b78ebb514e093d0
+  - enabled: 1
+    path: Assets/Scenes/Sara Escena de Testeo.unity
+    guid: 5d6bc5d6ceb24254285597b7190fa451
+  - enabled: 1
+    path: Assets/MENU/HOWTOPLAY.unity
+    guid: 4c56c5e511043d24681ab9dffa580936
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 82c9ac56b7540354b9872b58a6777526,
       type: 3}
