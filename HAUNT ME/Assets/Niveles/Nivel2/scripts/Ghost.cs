@@ -1,20 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class NewBehaviourScript : MonoBehaviour
 {
 
     // Nerea
 
+    //public Rigidbody body;
+
     private CharacterController characterController2;
     private float ySpeed2;
     private float OriginalStepOffSet2;
+    private bool IsMoving2;
 
     [Header("Player Settings")]
     public float speed2;
     public float jumpSpeed2;
     public float rotationSpeed2;
+    public bool CanUseInputs;
 
     [Header("CameraFollow")]
     public Transform CameraTransform2;
@@ -28,12 +33,18 @@ public class NewBehaviourScript : MonoBehaviour
     {
         characterController2 = GetComponent<CharacterController>();
         OriginalStepOffSet2 = characterController2.stepOffset;
+        CanUseInputs = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        
+        
+        if (CanUseInputs == true)
+        {
+            Move();
+        }
     }
     public void Move()
     {
@@ -52,6 +63,8 @@ public class NewBehaviourScript : MonoBehaviour
         {
             characterController2.stepOffset = OriginalStepOffSet2;
             ySpeed2 = -0.5f;
+
+            //use space for jump
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 ySpeed2 = jumpSpeed2;
@@ -73,5 +86,40 @@ public class NewBehaviourScript : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed2 * Time.deltaTime);//rotate
         }
 
+
+
     }
+
+    public void Animation()
+    {
+        if (IsMoving2 == false)
+        {
+            //animPlayer.SetBool("IsMoving", false);
+
+        }
+        else
+        {
+            //animPlayer.SetBool("IsMoving", true);
+        }
+    }
+
+    //para que al chocar con el agua se muera
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Debug.Log("He detectado una colision con:" + hit.collider.name);
+        if (hit.collider.CompareTag("agua"))
+        {
+            Debug.Log("He detectado una colision con:muerte");
+
+            
+            CanUseInputs = false;
+            //hace que cuando choque no le permita moverse y se pare
+
+            Time.timeScale = 0.0f;
+        }
+
+      
+    }
+
+  
 }
