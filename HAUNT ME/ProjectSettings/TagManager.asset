@@ -7,6 +7,18 @@ TagManager:
   - Lana
   - Cube
   - Suelo
+<<<<<<< HEAD
+  - Muerte
+  - agua
+  - cristal
+  - cristal2
+  - cristal3
+  - puerta
+  - objeto
+=======
+  - Enemy
+  - Car
+>>>>>>> 4c33a3895b309a8a633c565378259aa0dc27ea8e
   layers:
   - Default
   - TransparentFX

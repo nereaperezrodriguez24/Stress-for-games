@@ -6,6 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+<<<<<<< HEAD
     path: "Assets/Niveles/Cinem\xE1tica/CInematic_1.unity"
     guid: f1dea0f9dd648a34c8b201e82bb311a9
   - enabled: 1
@@ -15,15 +16,20 @@ EditorBuildSettings:
     path: Assets/Niveles/MENU/UI/Inicio2/Inicio2.unity
     guid: 9cf816aa1522af149a183f49a7839757
   - enabled: 1
+=======
+>>>>>>> d15c2d967e0ab0f24e346f3b7b58c41774441bf2
     path: Assets/Niveles/Nivel1/Scenes/nvl_1.unity
     guid: 5d6bc5d6ceb24254285597b7190fa451
   - enabled: 1
     path: Assets/Niveles/Nivel2/Nivel2.unity
     guid: 75dac28418cc6df4fa0b1d5caecf519c
+<<<<<<< HEAD
   - enabled: 1
     path: Assets/Niveles/MENU/EvaMenu/Scenes/Menu.unity
     guid: ed0e2251f08acbf4f97cef10ff0277d0
   - enabled: 1
     path: Assets/Niveles/MENU/EvaMenu/Scenes/HOWTOPLAY.unity
     guid: 5c044dd55902474418e2f2f4bf10df94
+=======
+>>>>>>> d15c2d967e0ab0f24e346f3b7b58c41774441bf2
   m_configObjects: {}
