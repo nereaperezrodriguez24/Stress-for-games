@@ -20,6 +20,6 @@ public class HowToPlay_Scritp : MonoBehaviour
     public void Return_Menu()
 
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 }

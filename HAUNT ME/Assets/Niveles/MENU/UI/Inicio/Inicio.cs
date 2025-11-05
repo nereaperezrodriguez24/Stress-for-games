@@ -20,7 +20,7 @@ public class Inicio : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene("Inicio2");
         }
     }
     
