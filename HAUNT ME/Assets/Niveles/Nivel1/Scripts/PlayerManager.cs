@@ -9,15 +9,16 @@ public class PlayerManager : MonoBehaviour
     private CharacterController characterController;
     private float ySpeed;
     private float OriginalStepOffSet;
-    private Animator animPlayer;
+    public Animator animPlayer;
     private bool IsMoving;
-    public LanaMovement lanamovement;
+    public LanaTransform LanaTransform;
 
     [Header("Player Settings")]
     public float speed;
     public float jumpSpeed;
     public float rotationSpeed;
     public bool CanUseInputs;
+    public bool IsAlive;
 
     [Header("CameraFollow")]
     public Transform CameraTransform;
@@ -33,12 +34,12 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Animation();
-        if (CanUseInputs == true)
+        
+        if (CanUseInputs == true) //&& IsAlive == true)
         {
+            Animation();
             Movement();
         }
-
     }
     
     public void Movement()
@@ -75,8 +76,9 @@ public class PlayerManager : MonoBehaviour
         if (movementDirection != Vector3.zero) //chaeck if we are moving
         {
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up); //create the rotate in direction of movement
-
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);//rotate
+            transform.rotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            //transform.forward = CameraTransform.forward;
         }
 
     }
@@ -90,6 +92,15 @@ public class PlayerManager : MonoBehaviour
         else
         {
             animPlayer.SetBool("IsMoving", true);
+        }
+
+        if (LanaTransform.isCar == false)
+        {
+            animPlayer.SetBool("IsCar", false);
+        }
+        else
+        {
+            animPlayer.SetBool("IsCar", true);
         }
     }
 }

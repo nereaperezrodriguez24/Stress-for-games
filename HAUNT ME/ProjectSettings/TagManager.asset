@@ -7,6 +7,8 @@ TagManager:
   - Lana
   - Cube
   - Suelo
+  - Enemy
+  - Car
   layers:
   - Default
   - TransparentFX

@@ -9,9 +9,11 @@ public class EnemyChase : MonoBehaviour
 {
     public NavMeshAgent agent;
 
-    public GameObject OjoDerc;
-    public GameObject OjoIzq;
+    public GameObject OjosChill;
+    public GameObject OjosMal;
+    public GameObject DeathPanel;
 
+    public PlayerManager PlayerManager;
     private Animator EnemyAnim;
 
     public Transform pointA;
@@ -32,6 +34,8 @@ public class EnemyChase : MonoBehaviour
         EnemyAnim = GetComponent<Animator>();
         target = pointA;
         agent.SetDestination(target.position);//goes to point A
+        DeathPanel.SetActive(false);
+        OjosMal.gameObject.SetActive(false);
     }
 
     void Update()
@@ -43,22 +47,25 @@ public class EnemyChase : MonoBehaviour
             chasingPlayer = true;
             agent.SetDestination(player.position);//it chase it            
             IsAngry = true;
+            OjosChill.gameObject.SetActive(false);
+            OjosMal.gameObject.SetActive(true);
+
         }
         else
         {
+            OjosMal.gameObject.SetActive(false);
+            OjosChill.gameObject.SetActive(true);
             chasingPlayer = false;
-            Quaternion toRotation = target.rotation; //create the rotate in direction of target
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);//rotate
-            if (target.rotation == transform.rotation)
-            {
-                agent.SetDestination(target.position);
-            }
+            agent.SetDestination(target.position);
+            transform.rotation = target.transform.rotation;
+            
         }
 
-        if (chasingPlayer == false)// if not it patrol
+        if (chasingPlayer == false)// if not, it patrol
         {
             if (Vector3.Distance(transform.position, target.position) <= stopDistance)
             {
+                
                 // change target
                 if (target == pointA)
                 {
@@ -82,6 +89,15 @@ public class EnemyChase : MonoBehaviour
         else
         {
             EnemyAnim.SetBool("IsAngry", true);
+        }
+    }
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.collider.CompareTag("Player"))
+        {
+            DeathPanel.SetActive(true);
+            Debug.Log("Muerto");
+            PlayerManager.IsAlive = false;
         }
     }
 }
