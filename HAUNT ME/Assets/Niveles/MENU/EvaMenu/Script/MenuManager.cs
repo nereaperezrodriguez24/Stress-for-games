@@ -13,9 +13,12 @@ public class MenuManager : MonoBehaviour
     public GameObject MenuSettings;
     public bool puedo_usar_inputs;
 
+<<<<<<< HEAD
     public bool CanUseInputs;
     public GameObject SettingPanel;
 
+=======
+>>>>>>> 6f2faa3cf951b6686f7e0a7a3c4bde6f5bffbfd0
     // Start is called before the first frame update
     void Start()
     {
