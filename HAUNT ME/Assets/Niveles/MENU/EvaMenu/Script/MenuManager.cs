@@ -9,15 +9,10 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class MenuManager : MonoBehaviour
 {
-<<<<<<< HEAD
-
     public bool settingActive;
     public GameObject MenuSettings;
     public bool puedo_usar_inputs;
-=======
-    public bool CanUseInputs;
-    public GameObject SettingPanel;
->>>>>>> d15c2d967e0ab0f24e346f3b7b58c41774441bf2
+
     // Start is called before the first frame update
     void Start()
     {
